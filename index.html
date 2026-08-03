@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>今日のハロプロ</title>
+<style>
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+background:linear-gradient(135deg,#6fb8ff,#ff90cf);
+min-height:100vh;
+display:flex;justify-content:center;align-items:center;
+color:white;
+}
+.card{
+width:min(92%,420px);
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(16px);
+border-radius:24px;
+padding:28px;
+box-shadow:0 12px 40px rgba(0,0,0,.2);
+animation:fade .6s ease;
+}
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+h1{margin:0}
+.sub{opacity:.9;font-size:.95rem}
+button{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+font-size:17px;
+font-weight:bold;
+background:white;
+color:#ff4ca0;
+}
+.result{
+margin-top:22px;
+padding:16px;
+background:rgba(255,255,255,.12);
+border-radius:16px;
+}
+li{margin:8px 0}
+footer{
+margin-top:20px;
+font-size:.8rem;
+opacity:.75;
+text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🎵 今日のハロプロ</h1>
+<p id="greet" class="sub"></p>
+<p class="sub">🌸 今日の気分にぴったりなハロプロを見つけよう！</p>
+
+<button onclick="pick()">今日の曲を選ぶ</button>
+
+<div class="result">
+<h2 id="group">🍀 ボタンを押してスタート！</h2>
+<p id="comment"></p>
+<ul id="songs"></ul>
+</div>
+
+<footer>Presented by トカちゃん 🤍</footer>
+</div>
+
+<script>
+const data={
+"Juice=Juice":[
+"クラクラ クライマックス",
+"微炭酸",
+"Fiesta! Fiesta!",
+"プラトニック・プラネット",
+"五月雨美女がさ乱れる"
+]
+};
+
+const comments=[
+"💬 今日はJuice=Juiceな気分！",
+"💬 元気をチャージしよう！",
+"💬 新しい一曲との出会いがあるかも！",
+"💬 音楽と一緒に良い一日を！"
+];
+
+const h=new Date().getHours();
+let greet="こんばんは🌙";
+if(h<11) greet="おはよう☀️";
+else if(h<18) greet="こんにちは🌸";
+document.getElementById("greet").textContent=greet;
+
+function shuffle(arr){
+return [...arr].sort(()=>Math.random()-0.5);
+}
+
+function pick(){
+const group="Juice=Juice";
+document.getElementById("group").textContent="🍹 "+group;
+document.getElementById("comment").textContent=
+comments[Math.floor(Math.random()*comments.length)];
+document.getElementById("songs").innerHTML=
+shuffle(data[group]).map(s=>"<li>🎧 "+s+"</li>").join("");
+}
+</script>
+</body>
+</html>
